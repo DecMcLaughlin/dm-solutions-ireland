@@ -664,9 +664,9 @@ section { scroll-margin-top: calc(var(--bar-h, 72px) - 8px); }
   total = F + 0.5;
 
   var pins = [
-    { p: [1.5, 1.5, 2], t: 'Site inspection' },
-    { p: [3.5, 2.5, 3], t: 'RAMS review' },
-    { p: [3, 0.5, 1], t: 'Toolbox talk' }
+    { p: [1.5, 1.5, 2], t: 'Site inspection', side: 'l', dy: -1 },
+    { p: [3.5, 2.5, 3], t: 'RAMS review', side: 'r', dy: -1 },
+    { p: [3, 0.5, 1], t: 'Toolbox talk', side: 'r', dy: 1 }
   ];
 
   var W = 0, H = 0, dpr = 1, sc = 1, cx = 0, cy = 0;
@@ -689,22 +689,42 @@ section { scroll-margin-top: calc(var(--bar-h, 72px) - 8px); }
     ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]);
     ctx.lineWidth = w; ctx.strokeStyle = c; ctx.lineCap = 'round'; ctx.stroke();
   }
+  /* Place the three labels so they stay inside the canvas and never overlap each other. Smaller type on narrow screens. */
+  function layoutPins() {
+    var fs = W < 460 ? 10.5 : (W < 640 ? 11 : 12), bh = fs + 14, rects = [];
+    ctx.font = '600 ' + fs + 'px "Public Sans", system-ui, sans-serif';
+    pins.forEach(function (pin) {
+      var p = pt(pin.p[0], pin.p[1], pin.p[2]), bw = ctx.measureText(pin.t).width + 18;
+      var bx = pin.side === 'r' ? p[0] + 12 : p[0] - 12 - bw;
+      var by = pin.dy < 0 ? p[1] - bh - 8 : p[1] + 8;
+      bx = Math.max(4, Math.min(W - bw - 4, bx));
+      var tries = 0, moved = true;
+      while (moved && tries++ < 6) {
+        moved = false;
+        rects.forEach(function (r) {
+          if (bx < r.x + r.w + 4 && bx + bw + 4 > r.x && by < r.y + r.h + 4 && by + bh + 4 > r.y) {
+            by = pin.dy < 0 ? r.y - bh - 4 : r.y + r.h + 4; moved = true;
+          }
+        });
+        by = Math.max(4, Math.min(H - bh - 4, by));
+      }
+      rects.push({ x: bx, y: by, w: bw, h: bh });
+      pin.pos = p; pin.box = { x: bx, y: by, w: bw, h: bh }; pin.fs = fs;
+    });
+  }
   function pinLabel(pin, phase) {
-    var p = pt(pin.p[0], pin.p[1], pin.p[2]);
+    var p = pin.pos, b = pin.box;
     var r = 5 + (reduce ? 0 : phase * 11);
     ctx.beginPath(); ctx.arc(p[0], p[1], r, 0, 6.2832);
     ctx.strokeStyle = 'rgba(82,184,196,' + (reduce ? 0.5 : 0.7 * (1 - phase)) + ')'; ctx.lineWidth = 1.5; ctx.stroke();
     ctx.beginPath(); ctx.arc(p[0], p[1], 5, 0, 6.2832); ctx.fillStyle = TEAL; ctx.fill();
-    ctx.font = '600 12px "Public Sans", system-ui, sans-serif';
-    var tw = ctx.measureText(pin.t).width, bw = tw + 22, bh = 26;
-    var right = p[0] + 16 + bw < W - 6;
-    var bx = right ? p[0] + 16 : p[0] - 16 - bw, by = p[1] - 34;
-    line([p[0], p[1]], [right ? bx : bx + bw, by + bh / 2], 1, 'rgba(82,184,196,.7)');
+    line(p, [Math.max(b.x, Math.min(p[0], b.x + b.w)), Math.max(b.y, Math.min(p[1], b.y + b.h))], 1, 'rgba(82,184,196,.7)');
     ctx.beginPath();
-    if (ctx.roundRect) ctx.roundRect(bx, by, bw, bh, 13); else ctx.rect(bx, by, bw, bh);
+    if (ctx.roundRect) ctx.roundRect(b.x, b.y, b.w, b.h, b.h / 2); else ctx.rect(b.x, b.y, b.w, b.h);
     ctx.fillStyle = 'rgba(13,32,54,.92)'; ctx.fill();
     ctx.strokeStyle = 'rgba(82,184,196,.8)'; ctx.lineWidth = 1; ctx.stroke();
-    ctx.fillStyle = '#fff'; ctx.textBaseline = 'middle'; ctx.fillText(pin.t, bx + 11, by + bh / 2 + 0.5);
+    ctx.font = '600 ' + pin.fs + 'px "Public Sans", system-ui, sans-serif';
+    ctx.fillStyle = '#fff'; ctx.textBaseline = 'middle'; ctx.fillText(pin.t, b.x + 9, b.y + b.h / 2 + 0.5);
   }
 
   /* Tower crane beside the frame: lattice mast, jib that slowly slews, hook and a hanging load. */
@@ -756,6 +776,7 @@ section { scroll-margin-top: calc(var(--bar-h, 72px) - 8px); }
     crane(t, ms);
     // markers once the frame is up
     if (t >= total) {
+      layoutPins();
       for (k = 0; k < pins.length; k++) pinLabel(pins[k], reduce ? 0 : ((ms / 1800 + k / 3) % 1));
     }
   }
