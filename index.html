@@ -227,6 +227,72 @@ footer p { max-width: 70ch; }
   .values { grid-template-columns: minmax(0, 1fr); }
   .card { padding: 22px; }
 }
+/* enquiry */
+.bar-end { display: flex; align-items: center; gap: 12px; }
+.bar-cta { background: var(--accent-lt); color: #0D2036; font-weight: 600; font-size: 14px; text-decoration: none; padding: 7px 18px; border-radius: 999px; transition: background .2s; }
+.bar-cta:hover { background: #fff; }
+.enq { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: 56px; align-items: start; }
+.enq-intro h2 { font-size: clamp(30px, 3.8vw, 48px); font-weight: 800; font-stretch: 105%; letter-spacing: -.01em; margin-bottom: 18px; }
+.enq-intro p { color: var(--muted); }
+.routes { display: grid; gap: 12px; margin-top: 32px; }
+.route { display: flex; align-items: center; gap: 16px; padding: 16px 20px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); text-decoration: none; transition: border-color .2s, transform .2s; }
+.route:hover { border-color: var(--teal); transform: translateY(-2px); }
+.route .ic { font-size: 28px; color: var(--teal); }
+.route strong { display: block; font: 700 18px/1.2 var(--font-display); }
+.route span { color: var(--muted); font-size: 14px; }
+.eform { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 32px; box-shadow: 0 24px 48px -32px rgba(13,32,54,.45); min-width: 0; }
+.fprog { display: flex; gap: 8px; margin: 0 0 26px; padding: 0; list-style: none; }
+.fprog li { flex: 1; padding-top: 10px; border-top: 3px solid var(--line); font-size: 13px; font-weight: 600; color: var(--muted); transition: border-color .3s, color .3s; }
+.fprog li.on { border-top-color: var(--teal); color: var(--fg); }
+.ferr { min-height: 0; margin: 0 0 14px; color: #B3261E; font-size: 14px; font-weight: 500; }
+.ferr:empty { display: none; }
+:root[data-theme="dark"] .ferr { color: #FF8A80; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .ferr { color: #FF8A80; } }
+.panel { border: 0; padding: 0; margin: 0; min-width: 0; display: grid; gap: 18px; }
+.panel[hidden] { display: none; }
+.panel legend { font: 800 26px/1.15 var(--font-display); font-stretch: 105%; padding: 0; margin-bottom: 6px; float: left; width: 100%; }
+.panel legend + * { clear: both; }
+.hint { color: var(--muted); font-size: 14px; margin: 0; }
+.chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.chip { position: relative; }
+.chip input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.chip span { display: inline-flex; align-items: center; gap: 8px; padding: 12px 18px; border: 1.5px solid var(--line); border-radius: 999px; font-weight: 500; background: var(--bg); transition: border-color .2s, background .2s, transform .15s; }
+.chip span .ic { width: 0; margin-left: -4px; opacity: 0; transition: width .2s, opacity .2s, margin .2s; stroke-width: 2.4; }
+.chip:hover span { border-color: var(--teal); }
+.chip input:checked + span { border-color: var(--teal); background: var(--tint); color: var(--fg); }
+.chip input:checked + span .ic { width: 16px; margin-left: 0; opacity: 1; color: var(--teal); }
+.chip input:focus-visible + span { outline: 3px solid var(--accent-lt); outline-offset: 2px; }
+.chips.small .chip span { padding: 9px 16px; font-size: 15px; }
+.grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.field { display: grid; gap: 6px; min-width: 0; }
+.field label, .field .lab { font-size: 14px; font-weight: 600; }
+.opt { font-weight: 400; color: var(--muted); }
+.field input, .field select, .field textarea { font: inherit; color: var(--fg); background: var(--bg); border: 1.5px solid var(--line); border-radius: 8px; padding: 12px 14px; width: 100%; min-width: 0; transition: border-color .2s, box-shadow .2s; }
+.field textarea { resize: vertical; min-height: 110px; }
+.field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--teal); box-shadow: 0 0 0 3px rgba(82,184,196,.3); }
+.field .bad { border-color: #B3261E; }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.consent { display: flex; gap: 12px; align-items: flex-start; font-size: 14px; color: var(--muted); }
+.consent input { margin-top: 4px; width: 18px; height: 18px; accent-color: var(--teal); flex: none; }
+.privacy { font-size: 14px; color: var(--muted); }
+.privacy summary { cursor: pointer; font-weight: 600; color: var(--fg); }
+.privacy p { margin-top: 8px; }
+.fnav { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 26px; }
+.fnav .btn.primary { margin-left: auto; }
+.btn { font: inherit; font-weight: 600; cursor: pointer; border: 1.5px solid var(--line); background: var(--surface); color: var(--fg); border-radius: 6px; padding: 13px 24px; text-decoration: none; display: inline-block; transition: background .2s, border-color .2s, transform .2s; }
+.btn:hover { border-color: var(--teal); }
+.btn.primary { background: var(--navy); color: var(--bg); border-color: var(--navy); }
+.btn.primary:hover { background: var(--teal); border-color: var(--teal); color: #fff; transform: translateY(-1px); }
+.btn.link { border-color: transparent; background: none; color: var(--muted); padding-inline: 8px; }
+.btn.link:hover { color: var(--fg); }
+.done h3 { font: 800 26px/1.15 var(--font-display); font-stretch: 105%; margin: 0; }
+.summary { margin: 0; padding: 16px 18px; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; font: 400 14px/1.6 var(--font-body); white-space: pre-wrap; word-break: break-word; max-height: 260px; overflow: auto; }
+.factions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+@keyframes panelin { from { opacity: 0; transform: translateX(18px); } }
+.motion .panel:not([hidden]) { animation: panelin .45s cubic-bezier(.2,.75,.2,1) both; }
+@media (max-width: 960px) { .enq { grid-template-columns: minmax(0, 1fr); gap: 40px; } }
+@media (max-width: 560px) { .eform { padding: 22px; } .grid2 { grid-template-columns: minmax(0, 1fr); } .fprog li { font-size: 12px; } }
+
 /* motion */
 .hero-band { padding-top: var(--bar-h, 72px); }
 section { scroll-margin-top: calc(var(--bar-h, 72px) - 8px); }
@@ -299,6 +365,10 @@ section { scroll-margin-top: calc(var(--bar-h, 72px) - 8px); }
     <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
     <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9L12 3z"/></symbol>
     <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5z"/><path d="M8 9.5h8M8 12.5h5"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1 1A15 15 0 0 1 4 5a1 1 0 0 1 1-1z"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><path d="M4 6h16v14H4zM4 10h16M8 3v4M16 3v4"/><path d="M8 14h2M12 14h2M8 17h2"/></symbol>
+    <symbol id="i-tick" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
   </defs>
 </svg>
 
@@ -313,7 +383,10 @@ section { scroll-margin-top: calc(var(--bar-h, 72px) - 8px); }
       <a href="#story">Our story</a>
       <a href="#contact">Contact</a>
     </nav>
-    <button class="theme" id="theme" type="button" aria-label="Switch colour theme">Theme</button>
+    <span class="bar-end">
+      <button class="theme" id="theme" type="button" aria-label="Switch colour theme">Theme</button>
+      <a class="bar-cta" href="#enquire">Enquire</a>
+    </span>
   </div>
   <div class="progress" id="progress"></div>
 </header>
@@ -325,7 +398,7 @@ section { scroll-margin-top: calc(var(--bar-h, 72px) - 8px); }
         <h1><span class="line"><span>One company.</span></span> <span class="line"><span>Multiple solutions.</span></span> <span class="line"><span class="accent">One standard of excellence.</span></span></h1>
         <p class="lede">We supply qualified EHS professionals to construction and engineering projects across Ireland, and we are building skilled workforce and mechanical and electrical services on that foundation.</p>
         <div class="actions">
-          <a class="cta" href="#contact">Talk to us about your project</a>
+          <a class="cta" href="#enquire">Tell us about your project</a>
           <a class="ghost" href="#services">See our services</a>
         </div>
         <ul class="tags" aria-label="Service areas">
@@ -457,11 +530,102 @@ section { scroll-margin-top: calc(var(--bar-h, 72px) - 8px); }
     </div>
   </section>
 
+  <section id="enquire" style="padding-top:0">
+    <div class="wrap enq">
+      <div class="enq-intro">
+        <h2>Tell us about your project</h2>
+        <p>Answer three short questions and we'll have what we need to come back to you with a sensible next step. No forms to download, no jargon.</p>
+        <div class="routes">
+          <a class="route" href="https://wa.me/447784753442" target="_blank" rel="noopener"><svg class="ic"><use href="#i-chat"/></svg><div><strong>Message us on WhatsApp</strong><span>+44 7784 753442</span></div></a>
+          <a class="route" href="tel:+447784753442"><svg class="ic"><use href="#i-phone"/></svg><div><strong>Call us</strong><span>+44 7784 753442</span></div></a>
+          <a class="route" id="cal-route" href="#" target="_blank" rel="noopener" hidden><svg class="ic"><use href="#i-calendar"/></svg><div><strong>Book a call</strong><span>Pick a time that suits you</span></div></a>
+        </div>
+      </div>
+
+      <form class="eform" id="enq" novalidate>
+        <ol class="fprog" aria-label="Enquiry progress">
+          <li class="on">What you need</li><li>The project</li><li>About you</li>
+        </ol>
+        <p class="ferr" id="enq-err" role="alert" aria-live="assertive"></p>
+
+        <fieldset class="panel" data-step="0">
+          <legend tabindex="-1">What do you need help with?</legend>
+          <p class="hint">Choose all that apply.</p>
+          <div class="chips">
+            <label class="chip"><input type="checkbox" name="need" value="EHS professionals"><span><svg class="ic"><use href="#i-tick"/></svg>EHS professionals</span></label>
+            <label class="chip"><input type="checkbox" name="need" value="Skilled workforce"><span><svg class="ic"><use href="#i-tick"/></svg>Skilled workforce</span></label>
+            <label class="chip"><input type="checkbox" name="need" value="Mechanical services"><span><svg class="ic"><use href="#i-tick"/></svg>Mechanical services</span></label>
+            <label class="chip"><input type="checkbox" name="need" value="Electrical services"><span><svg class="ic"><use href="#i-tick"/></svg>Electrical services</span></label>
+            <label class="chip"><input type="checkbox" name="need" value="Not sure yet"><span><svg class="ic"><use href="#i-tick"/></svg>Not sure yet</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="panel" data-step="1" hidden>
+          <legend tabindex="-1">Tell us about the project</legend>
+          <div class="grid2">
+            <div class="field"><label for="f-sector">Sector</label>
+              <select id="f-sector" name="sector">
+                <option value="">Choose a sector</option>
+                <option>Data centre</option><option>Pharmaceutical and life sciences</option>
+                <option>Mechanical and electrical engineering</option><option>Commercial and industrial</option>
+                <option>Infrastructure</option><option>Other</option>
+              </select></div>
+            <div class="field"><label for="f-start">When do you need people?</label>
+              <select id="f-start" name="start">
+                <option value="">Choose a timeframe</option>
+                <option>As soon as possible</option><option>Within a month</option>
+                <option>In one to three months</option><option>Planning ahead</option>
+              </select></div>
+          </div>
+          <div class="field"><label for="f-loc">Site location</label><input id="f-loc" name="location" type="text" autocomplete="off" placeholder="For example, Dublin or Cork"></div>
+          <div class="field"><label for="f-msg">Anything else we should know? <span class="opt">Optional</span></label><textarea id="f-msg" name="message" rows="4" placeholder="Roles, numbers, certifications, programme dates"></textarea></div>
+        </fieldset>
+
+        <fieldset class="panel" data-step="2" hidden>
+          <legend tabindex="-1">How do we reach you?</legend>
+          <div class="grid2">
+            <div class="field"><label for="f-name">Your name</label><input id="f-name" name="name" type="text" autocomplete="name" required></div>
+            <div class="field"><label for="f-co">Company <span class="opt">Optional</span></label><input id="f-co" name="company" type="text" autocomplete="organization"></div>
+            <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
+            <div class="field"><label for="f-tel">Phone <span class="opt">Optional</span></label><input id="f-tel" name="phone" type="tel" autocomplete="tel"></div>
+          </div>
+          <div class="field"><span class="lab" id="pref-l">Best way to reach you</span>
+            <div class="chips small" role="radiogroup" aria-labelledby="pref-l">
+              <label class="chip"><input type="radio" name="prefer" value="Email" checked><span>Email</span></label>
+              <label class="chip"><input type="radio" name="prefer" value="Phone"><span>Phone</span></label>
+              <label class="chip"><input type="radio" name="prefer" value="WhatsApp"><span>WhatsApp</span></label>
+            </div></div>
+          <div class="hp" aria-hidden="true"><label for="f-web">Leave this empty</label><input id="f-web" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+          <label class="consent"><input type="checkbox" id="f-consent" name="consent" required><span>I agree that DM Solutions Ireland Limited may use these details to reply to my enquiry.</span></label>
+          <details class="privacy"><summary>How we use your details</summary>
+            <p>We use what you enter here only to respond to your enquiry. We do not sell or share it. To have your details deleted, contact us on +44 7784 753442. This notice is a draft and will be updated once company and email details are confirmed.</p></details>
+        </fieldset>
+
+        <div class="panel done" data-step="3" hidden>
+          <h3 tabindex="-1" id="done-title">Your enquiry is ready</h3>
+          <p id="done-lede">Send it to us on WhatsApp so it reaches us straight away.</p>
+          <pre class="summary" id="summary"></pre>
+          <div class="factions">
+            <a class="btn primary" id="wa-send" href="#" target="_blank" rel="noopener">Send on WhatsApp</a>
+            <button class="btn" type="button" id="copy">Copy enquiry</button>
+            <button class="btn link" type="button" id="again">Start again</button>
+          </div>
+          <p class="hint" id="copied" role="status"></p>
+        </div>
+
+        <div class="fnav" id="fnav">
+          <button class="btn link" type="button" id="back" hidden>Back</button>
+          <button class="btn primary" type="button" id="next">Next</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
   <section class="contact-sec" id="contact" style="padding-top:0">
     <div class="wrap">
       <div class="titleblock">
         <div class="big">
-          <h2>Start a conversation</h2>
+          <h2>Company details</h2>
           <span class="k" style="margin:0">Status: for discussion</span>
         </div>
         <div><span class="k">Directors</span><div class="v">Ronan Devine<br>Felton Meth</div></div>
@@ -703,6 +867,98 @@ section { scroll-margin-top: calc(var(--bar-h, 72px) - 8px); }
     });
     band.addEventListener('pointerleave', function () { band.style.setProperty('--px', 0); band.style.setProperty('--py', 0); });
   }
+})();
+
+/* Enquiry form: three steps, then a hand-off. Set endpoint when an email service is connected; cal when a Cal.com page exists. */
+(function () {
+  var CONFIG = { endpoint: '', whatsapp: '447784753442', phone: '+44 7784 753442', cal: '' };
+  var form = document.getElementById('enq');
+  if (!form) return;
+  var panels = [].slice.call(form.querySelectorAll('.panel')), prog = [].slice.call(form.querySelectorAll('.fprog li'));
+  var back = document.getElementById('back'), next = document.getElementById('next'), nav = document.getElementById('fnav');
+  var err = document.getElementById('enq-err'), step = 0;
+
+  if (CONFIG.cal) { var cr = document.getElementById('cal-route'); cr.href = CONFIG.cal; cr.hidden = false; }
+
+  function val(name) { var el = form.elements[name]; return el ? String(el.value || '').trim() : ''; }
+  function needs() { return [].slice.call(form.querySelectorAll('input[name="need"]:checked')).map(function (c) { return c.value; }); }
+  function mark(id, bad) { var el = document.getElementById(id); if (el) el.classList.toggle('bad', !!bad); }
+
+  function show(n, quiet) {
+    step = n;
+    panels.forEach(function (p, k) { p.hidden = k !== n; });
+    prog.forEach(function (li, k) { li.classList.toggle('on', k <= Math.min(n, 2)); });
+    back.hidden = n === 0 || n === 3;
+    nav.hidden = n === 3;
+    next.textContent = n === 2 ? 'Send enquiry' : 'Next';
+    err.textContent = '';
+    var t = panels[n].querySelector('legend, h3'); if (t && !quiet) t.focus({ preventScroll: true });
+  }
+
+  function check(n) {
+    var msg = '';
+    if (n === 0 && !needs().length) msg = 'Choose at least one option so we know where to start.';
+    if (n === 1) { mark('f-sector', !val('sector')); if (!val('sector')) msg = 'Choose the sector the project is in.'; }
+    if (n === 2) {
+      var okName = !!val('name'), okMail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val('email'));
+      mark('f-name', !okName); mark('f-email', !okMail);
+      if (!okName) msg = 'Enter your name.';
+      else if (!okMail) msg = 'Enter an email address we can reply to, such as name@company.ie.';
+      else if (!document.getElementById('f-consent').checked) msg = 'Tick the box so we know we can reply to you.';
+    }
+    err.textContent = msg;
+    return !msg;
+  }
+
+  function summary() {
+    var lines = ['New enquiry from ' + val('name') + (val('company') ? ' (' + val('company') + ')' : ''),
+      'Needs: ' + needs().join(', '),
+      'Sector: ' + val('sector'),
+      val('start') ? 'Timing: ' + val('start') : '',
+      val('location') ? 'Location: ' + val('location') : '',
+      val('message') ? 'Details: ' + val('message') : '',
+      'Email: ' + val('email'),
+      val('phone') ? 'Phone: ' + val('phone') : '',
+      'Best way to reach me: ' + val('prefer')];
+    return lines.filter(Boolean).join('\n');
+  }
+
+  function handoff(text, title, lede) {
+    document.getElementById('summary').textContent = text;
+    document.getElementById('wa-send').href = 'https://wa.me/' + CONFIG.whatsapp + '?text=' + encodeURIComponent(text);
+    document.getElementById('done-title').textContent = title;
+    document.getElementById('done-lede').textContent = lede;
+    show(3);
+  }
+
+  function send() {
+    var text = summary();
+    if (val('website')) { handoff(text, 'Thank you', 'Your enquiry has been noted.'); return; }
+    if (!CONFIG.endpoint) {
+      handoff(text, 'Your enquiry is ready', 'Send it to us on WhatsApp so it reaches us straight away. You can also copy it, or call us on ' + CONFIG.phone + '.');
+      return;
+    }
+    next.disabled = true; next.textContent = 'Sending';
+    var data = { need: needs().join(', '), sector: val('sector'), start: val('start'), location: val('location'), message: val('message'),
+      name: val('name'), company: val('company'), email: val('email'), phone: val('phone'), prefer: val('prefer'), summary: text };
+    fetch(CONFIG.endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(data) })
+      .then(function (r) { if (!r.ok) throw new Error('bad'); handoff(text, 'Thank you, ' + val('name').split(' ')[0], 'We have your enquiry and will reply to ' + val('email') + '. You can also message us on WhatsApp if it is urgent.'); })
+      .catch(function () { handoff(text, 'We could not send that automatically', 'Your enquiry is below. Send it on WhatsApp or call us on ' + CONFIG.phone + ' and we will pick it up.'); })
+      .then(function () { next.disabled = false; });
+  }
+
+  next.addEventListener('click', function () { if (!check(step)) return; if (step < 2) show(step + 1); else send(); });
+  back.addEventListener('click', function () { show(step - 1); });
+  form.addEventListener('submit', function (e) { e.preventDefault(); next.click(); });
+  form.addEventListener('keydown', function (e) { if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA' && e.target.tagName !== 'BUTTON' && e.target.tagName !== 'A') { e.preventDefault(); next.click(); } });
+  document.getElementById('again').addEventListener('click', function () { form.reset(); [].slice.call(form.querySelectorAll('.bad')).forEach(function (el) { el.classList.remove('bad'); }); show(0); });
+  document.getElementById('copy').addEventListener('click', function () {
+    var out = document.getElementById('copied'), text = document.getElementById('summary').textContent;
+    function ok() { out.textContent = 'Copied. Paste it into an email or message.'; }
+    function sel() { var r = document.createRange(); r.selectNodeContents(document.getElementById('summary')); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); out.textContent = 'Press Ctrl+C or Cmd+C to copy the selected text.'; }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(ok, sel); else sel();
+  });
+  show(0, true);
 })();
 </script>
 </body>
