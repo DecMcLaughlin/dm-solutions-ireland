@@ -186,10 +186,13 @@ section { padding-block: 88px; }
 
 /* story */
 .story { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 56px; align-items: center; }
-.monogram { display: flex; gap: clamp(8px, 2vw, 24px); }
-.letter { flex: 1 1 0; min-width: 0; border: 0; background: none; padding: 0; text-align: left; cursor: default; font-family: var(--font-display); color: var(--fg); }
-.letter .glyph { display: block; font-weight: 900; font-stretch: 125%; font-size: clamp(120px, 17vw, 230px); line-height: .82; letter-spacing: -.04em; color: transparent; -webkit-text-stroke: 2px var(--teal); transition: color .3s; padding-bottom: 14px; border-bottom: 6px solid var(--teal); }
-.letter:hover .glyph, .letter:focus-visible .glyph { color: var(--teal); }
+.monogram { display: flex; align-items: flex-start; gap: clamp(20px, 4vw, 44px); flex-wrap: wrap; }
+.letter { flex: 0 0 auto; min-width: 0; border: 0; background: none; padding: 0; text-align: left; cursor: default; font-family: var(--font-display); color: var(--fg); }
+.letter .glyph { display: block; height: clamp(130px, 17vw, 220px); width: auto; transition: transform .3s cubic-bezier(.2,.75,.2,1); }
+.letter .lbar { display: block; height: 6px; margin-top: 16px; }
+.letter .lbar-d { background: var(--teal); }
+.letter .lbar-m { background: #FC8414; }
+.letter:hover .glyph, .letter:focus-visible .glyph { transform: translateY(-6px); }
 .letter small { display: block; margin-top: 12px; font: 500 15px/1.35 var(--font-body); color: var(--muted); }
 .letter small strong { display: block; color: var(--fg); font-family: var(--font-display); font-size: 20px; font-weight: 800; }
 .story h2 { font-size: clamp(30px, 3.6vw, 46px); font-weight: 800; font-stretch: 105%; margin-bottom: 22px; }
@@ -384,6 +387,7 @@ section { scroll-margin-top: calc(var(--bar-h, 72px) - 8px); }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .card, .tile, .letter .glyph, .cta, .stage, .bar { transition: none; }
+  .letter:hover .glyph, .letter:focus-visible .glyph { transform: none; }
   .card:hover, .cta:hover { transform: none; }
 }
 </style>
@@ -572,11 +576,11 @@ section { scroll-margin-top: calc(var(--bar-h, 72px) - 8px); }
     <div class="wrap story">
       <div class="monogram" aria-label="DM: Devine and Meth">
         <button class="letter" type="button" aria-label="D for Devine, Ronan Devine">
-          <span class="glyph" aria-hidden="true">D</span>
+          <svg class="glyph" viewBox="40.5 106 36 49.2" aria-hidden="true"><path fill-rule="evenodd" fill="var(--teal)" d="M41.2 106.8H52C68.7 106.8 75.8 114 75.8 130.7C75.8 147.4 68.7 154.6 52 154.6H41.2ZM50.5 115H51.5C62.2 115 66.8 119.7 66.8 130.75C66.8 141.8 62.2 146.5 51.5 146.5H50.5Z"/></svg><span class="lbar lbar-d"></span>
           <small><strong>Devine</strong>Ronan Devine, Director</small>
         </button>
         <button class="letter" type="button" aria-label="M for Meth, Felton Meth">
-          <span class="glyph" aria-hidden="true">M</span>
+          <svg class="glyph" viewBox="76.5 106 34 49.2" aria-hidden="true"><path fill="#FC8414" d="M99.2 107L108.4 107Q109.7 107 109.7 108.4L109.7 153.9Q109.7 155.2 108.4 155.2L101 155.2Q99.6 155.2 99.6 153.9L99.6 125.3L84 150.3L77.3 139L77 121.6L84 131.9L96.8 108.2Q97.5 107 99.2 107Z"/></svg><span class="lbar lbar-m"></span>
           <small><strong>Meth</strong>Felton Meth, Director</small>
         </button>
       </div>
