@@ -188,13 +188,23 @@ section { padding-block: 88px; }
 
 /* story */
 .story { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 40px; align-items: center; }
-.monogram { display: flex; align-items: flex-start; gap: clamp(8px, 1.2vw, 14px); flex-wrap: wrap; }
+
 .letter { flex: 0 0 auto; min-width: 0; border: 0; background: none; padding: 0; text-align: left; cursor: default; font-family: var(--font-display); color: var(--fg); }
 .letter .glyph { display: block; height: clamp(130px, 17vw, 220px); width: auto; transition: transform .3s cubic-bezier(.2,.75,.2,1); }
 .letter .lbar { display: block; height: 6px; margin-top: 16px; }
-.letter .lbar-d { background: var(--cta); }
-.letter .lbar-m { background: #FC8414; }
+.lbar-d { background: var(--cta); }
+.lbar-m { background: #FC8414; }
 .letter:hover .glyph, .letter:focus-visible .glyph { transform: translateY(-6px); }
+.monogram { display: block; width: clamp(240px, 27vw, 340px); }
+.mark-lg { display: block; width: 100%; height: auto; overflow: visible; }
+.mark-lg .ring { stroke: var(--teal); }
+.mark-lg .d { fill: var(--teal); stroke: var(--bg); }
+.mark-lg .m { fill: #FC8414; stroke: var(--bg); }
+.who { display: flex; gap: 16px; margin-top: 18px; }
+.person { flex: 1 1 0; min-width: 0; }
+.person .lbar { display: block; height: 6px; margin-bottom: 12px; }
+.person strong { display: block; color: var(--fg); font: 800 20px/1.2 var(--font-display); }
+.person small { display: block; margin-top: 2px; font: 500 14px/1.35 var(--font-body); color: var(--muted); }
 .letter small { display: block; margin-top: 12px; font: 500 15px/1.35 var(--font-body); color: var(--muted); }
 .letter small strong { display: block; color: var(--fg); font-family: var(--font-display); font-size: 20px; font-weight: 800; }
 .story h2 { font-size: clamp(30px, 3.6vw, 46px); font-weight: 800; font-stretch: 105%; margin-bottom: 22px; }
@@ -576,16 +586,7 @@ section { scroll-margin-top: calc(var(--bar-h, 72px) - 8px); }
 
   <section id="story" style="padding-top:0">
     <div class="wrap story">
-      <div class="monogram" aria-label="DM: Devine and Meth">
-        <button class="letter" type="button" aria-label="D for Devine, Ronan Devine">
-          <svg class="glyph" viewBox="40.5 106 36 49.2" aria-hidden="true"><path fill-rule="evenodd" fill="var(--teal)" d="M41.2 106.8H52C68.7 106.8 75.8 114 75.8 130.7C75.8 147.4 68.7 154.6 52 154.6H41.2ZM50.5 115H51.5C62.2 115 66.8 119.7 66.8 130.75C66.8 141.8 62.2 146.5 51.5 146.5H50.5Z"/></svg><span class="lbar lbar-d"></span>
-          <small><strong>Devine</strong>Ronan Devine, Director</small>
-        </button>
-        <button class="letter" type="button" aria-label="M for Meth, Felton Meth">
-          <svg class="glyph" viewBox="76.5 106 34 49.2" aria-hidden="true"><path fill="#FC8414" d="M99.2 107L108.4 107Q109.7 107 109.7 108.4L109.7 153.9Q109.7 155.2 108.4 155.2L101 155.2Q99.6 155.2 99.6 153.9L99.6 125.3L84 150.3L77.3 139L77 121.6L84 131.9L96.8 108.2Q97.5 107 99.2 107Z"/></svg><span class="lbar lbar-m"></span>
-          <small><strong>Meth</strong>Felton Meth, Director</small>
-        </button>
-      </div>
+      <div class="monogram" role="group" aria-label="DM: Devine and Meth"><svg class="mark-lg" viewBox="28 92 92 84" role="img" aria-label="The DM Solutions Ireland mark"><path class="ring" fill="none" stroke-width="3.4" stroke-linejoin="round" d="M69.8 99.7Q75 95 80.2 99.7L113.3 129.8Q118.5 134.5 113.3 139.2L80.2 169.3Q75 174 69.8 169.3L36.7 139.2Q31.5 134.5 36.7 129.8Z"/><path class="halo d" fill-rule="evenodd" stroke-width="3" paint-order="stroke" d="M41.2 106.8H52C68.7 106.8 75.8 114 75.8 130.7C75.8 147.4 68.7 154.6 52 154.6H41.2ZM50.5 115H51.5C62.2 115 66.8 119.7 66.8 130.75C66.8 141.8 62.2 146.5 51.5 146.5H50.5Z"/><path class="halo m" stroke-width="3" paint-order="stroke" d="M99.2 107L108.4 107Q109.7 107 109.7 108.4L109.7 153.9Q109.7 155.2 108.4 155.2L101 155.2Q99.6 155.2 99.6 153.9L99.6 125.3L84 150.3L77.3 139L77 121.6L84 131.9L96.8 108.2Q97.5 107 99.2 107Z"/></svg><div class="who"><div class="person"><span class="lbar lbar-d"></span><strong>Devine</strong><small>Ronan Devine, Director</small></div><div class="person"><span class="lbar lbar-m"></span><strong>Meth</strong><small>Felton Meth, Director</small></div></div></div>
       <div>
         <h2>Our story</h2>
         <div class="copy">
