@@ -36,6 +36,7 @@
   "description": "DM Solutions Ireland Limited is a specialist personnel supply partner, providing skilled, semi-skilled, trained and competent personnel, including qualified EHS personnel, to support construction and engineering projects across Ireland.",
   "slogan": "One company. Multiple solutions. One standard of excellence.",
   "telephone": "+447784753442",
+  "email": "dmsolutionsie@outlook.com",
   "areaServed": { "@type": "Country", "name": "Ireland" },
   "founder": [
     { "@type": "Person", "name": "Ronan Devine" },
@@ -429,6 +430,7 @@ section { scroll-margin-top: calc(var(--bar-h, 72px) - 8px); }
     <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1 1A15 15 0 0 1 4 5a1 1 0 0 1 1-1z"/></symbol>
     <symbol id="i-calendar" viewBox="0 0 24 24"><path d="M4 6h16v14H4zM4 10h16M8 3v4M16 3v4"/><path d="M8 14h2M12 14h2M8 17h2"/></symbol>
     <symbol id="i-tick" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><path d="M3 6h18v12H3z"/><path d="M3.5 7l8.5 6.5L20.5 7"/></symbol>
   </defs>
 </svg>
 
@@ -606,6 +608,7 @@ section { scroll-margin-top: calc(var(--bar-h, 72px) - 8px); }
         <div class="routes">
           <a class="route" href="https://wa.me/447784753442" target="_blank" rel="noopener"><svg class="ic"><use href="#i-chat"/></svg><div><strong>Message us on WhatsApp</strong><span>+44 7784 753442</span></div></a>
           <a class="route" href="tel:+447784753442"><svg class="ic"><use href="#i-phone"/></svg><div><strong>Call us</strong><span>+44 7784 753442</span></div></a>
+          <a class="route" href="mailto:dmsolutionsie@outlook.com"><svg class="ic"><use href="#i-mail"/></svg><div><strong>Email us</strong><span>dmsolutionsie@outlook.com</span></div></a>
           <a class="route" id="cal-route" href="#" target="_blank" rel="noopener" hidden><svg class="ic"><use href="#i-calendar"/></svg><div><strong>Book a call</strong><span>Pick a time that suits you</span></div></a>
         </div>
       </div>
@@ -666,7 +669,7 @@ section { scroll-margin-top: calc(var(--bar-h, 72px) - 8px); }
           <div class="hp" aria-hidden="true"><label for="f-web">Leave this empty</label><input id="f-web" name="website" type="text" tabindex="-1" autocomplete="off"></div>
           <label class="consent"><input type="checkbox" id="f-consent" name="consent" required><span>I agree that DM Solutions Ireland Limited may use these details to reply to my enquiry.</span></label>
           <details class="privacy"><summary>How we use your details</summary>
-            <p>We use what you enter here only to respond to your enquiry. We do not sell or share it. To have your details deleted, contact us on +44 7784 753442. This notice is a draft and will be updated once company and email details are confirmed.</p></details>
+            <p>We use what you enter here only to respond to your enquiry. It is emailed to us through a form service, and we do not sell or share it. To have your details deleted, email dmsolutionsie@outlook.com or call +44 7784 753442. This notice is a draft for review.</p></details>
         </fieldset>
 
         <div class="panel done" data-step="3" hidden>
@@ -953,7 +956,7 @@ section { scroll-margin-top: calc(var(--bar-h, 72px) - 8px); }
 
 /* Enquiry form: three steps, then a hand-off. Set endpoint when an email service is connected; cal when a Cal.com page exists. */
 (function () {
-  var CONFIG = { endpoint: '', whatsapp: '447784753442', phone: '+44 7784 753442', cal: '' };
+  var CONFIG = { endpoint: 'https://formsubmit.co/ajax/dmsolutionsie@outlook.com', whatsapp: '447784753442', phone: '+44 7784 753442', cal: '' };
   var form = document.getElementById('enq');
   if (!form) return;
   var panels = [].slice.call(form.querySelectorAll('.panel')), prog = [].slice.call(form.querySelectorAll('.fprog li'));
@@ -1022,9 +1025,11 @@ section { scroll-margin-top: calc(var(--bar-h, 72px) - 8px); }
     }
     next.disabled = true; next.textContent = 'Sending';
     var data = { need: needs().join(', '), sector: val('sector'), start: val('start'), location: val('location'), message: val('message'),
-      name: val('name'), company: val('company'), email: val('email'), phone: val('phone'), prefer: val('prefer'), summary: text };
+      name: val('name'), company: val('company'), email: val('email'), phone: val('phone'), prefer: val('prefer'), summary: text,
+      _subject: 'New website enquiry: ' + val('name'), _template: 'table', _captcha: 'false',
+      _autoresponse: 'Thank you for your enquiry to DM Solutions Ireland Limited. We have received it and will reply to this email address. If it is urgent, message or call us on ' + CONFIG.phone + '.' };
     fetch(CONFIG.endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(data) })
-      .then(function (r) { if (!r.ok) throw new Error('bad'); handoff(text, 'Thank you, ' + val('name').split(' ')[0], 'We have your enquiry and will reply to ' + val('email') + '. You can also message us on WhatsApp if it is urgent.'); })
+      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok || String(j.success) !== 'true') throw new Error('bad'); handoff(text, 'Thank you, ' + val('name').split(' ')[0], 'We have your enquiry and will reply to ' + val('email') + '. You can also message us on WhatsApp if it is urgent.'); }); })
       .catch(function () { handoff(text, 'We could not send that automatically', 'Your enquiry is below. Send it on WhatsApp or call us on ' + CONFIG.phone + ' and we will pick it up.'); })
       .then(function () { next.disabled = false; });
   }
