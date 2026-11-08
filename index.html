@@ -185,8 +185,8 @@ section { padding-block: 88px; }
 .value:last-child { grid-column: span 1; }
 
 /* story */
-.story { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 56px; align-items: center; }
-.monogram { display: flex; align-items: flex-start; gap: clamp(20px, 4vw, 44px); flex-wrap: wrap; }
+.story { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 40px; align-items: center; }
+.monogram { display: flex; align-items: flex-start; gap: clamp(8px, 1.2vw, 14px); flex-wrap: wrap; }
 .letter { flex: 0 0 auto; min-width: 0; border: 0; background: none; padding: 0; text-align: left; cursor: default; font-family: var(--font-display); color: var(--fg); }
 .letter .glyph { display: block; height: clamp(130px, 17vw, 220px); width: auto; transition: transform .3s cubic-bezier(.2,.75,.2,1); }
 .letter .lbar { display: block; height: 6px; margin-top: 16px; }
