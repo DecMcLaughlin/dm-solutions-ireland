@@ -1029,8 +1029,8 @@ section { scroll-margin-top: calc(var(--bar-h, 72px) - 8px); }
       _subject: 'New website enquiry: ' + val('name'), _template: 'table', _captcha: 'false',
       _autoresponse: 'Thank you for your enquiry to DM Solutions Ireland Limited. We have received it and will reply to this email address. If it is urgent, message or call us on ' + CONFIG.phone + '.' };
     fetch(CONFIG.endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(data) })
-      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok || String(j.success) !== 'true') throw new Error('bad'); handoff(text, 'Thank you, ' + val('name').split(' ')[0], 'We have your enquiry and will reply to ' + val('email') + '. You can also message us on WhatsApp if it is urgent.'); }); })
-      .catch(function () { handoff(text, 'We could not send that automatically', 'Your enquiry is below. Send it on WhatsApp or call us on ' + CONFIG.phone + ' and we will pick it up.'); })
+      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok || String(j.success) !== 'true') throw new Error(String(j.message || ('HTTP ' + r.status))); handoff(text, 'Thank you, ' + val('name').split(' ')[0], 'We have your enquiry and will reply to ' + val('email') + '. You can also message us on WhatsApp if it is urgent.'); }); })
+      .catch(function (e) { handoff(text, 'We could not send that automatically', 'Your enquiry is below. Send it on WhatsApp or call us on ' + CONFIG.phone + ' and we will pick it up. (Reason given: ' + String((e && e.message) || e).slice(0, 160) + ')'); })
       .then(function () { next.disabled = false; });
   }
 
