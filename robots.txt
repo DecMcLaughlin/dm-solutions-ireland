@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://decmclaughlin.github.io/dm-solutions-ireland/sitemap.xml
+Sitemap: https://dm-solutions.ie/sitemap.xml
