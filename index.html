@@ -355,8 +355,8 @@ footer p { max-width: 70ch; }
 
 /* enquiry as the focal band, and a closing prompt */
 #enquire { background: var(--tint); padding-block: 72px; }
-.route-call { display: none; }
-@media (hover: none) and (pointer: coarse) { .route-call { display: flex; } }
+.touch-only { display: none; }
+@media (hover: none) and (pointer: coarse) { .route.touch-only { display: flex; } .btn.touch-only { display: inline-block; } }
 .closing { display: flex; flex-wrap: wrap; gap: 16px 32px; align-items: center; justify-content: space-between; padding-block: 40px; border-top: 1px solid var(--line); }
 .closing p { font: 800 clamp(22px, 2.6vw, 30px)/1.2 var(--font-display); max-width: none; margin: 0; }
 .closing .cta { margin-top: 0; }
@@ -548,8 +548,8 @@ section { scroll-margin-top: calc(var(--bar-h, 72px) - 8px); }
         <h2>Tell us about your project</h2>
         <p>Answer three short questions and we'll have what we need to come back to you with a sensible next step. No forms to download, no jargon.</p>
         <div class="routes">
-          <a class="route" href="https://wa.me/447784753442" target="_blank" rel="noopener"><svg class="ic"><use href="#i-chat"/></svg><div><strong>Message us on WhatsApp</strong><span>+44 7784 753442</span></div></a>
-          <a class="route route-call" href="tel:+447784753442"><svg class="ic"><use href="#i-phone"/></svg><div><strong>Call us</strong><span>+44 7784 753442</span></div></a>
+          <a class="route touch-only" href="https://wa.me/447784753442" target="_blank" rel="noopener"><svg class="ic"><use href="#i-chat"/></svg><div><strong>Message us on WhatsApp</strong><span>+44 7784 753442</span></div></a>
+          <a class="route touch-only" href="tel:+447784753442"><svg class="ic"><use href="#i-phone"/></svg><div><strong>Call us</strong><span>+44 7784 753442</span></div></a>
           <a class="route" href="mailto:dmsolutionsie@outlook.com"><svg class="ic"><use href="#i-mail"/></svg><div><strong>Email us</strong><span>dmsolutionsie@outlook.com</span></div></a>
           <a class="route" id="cal-route" href="#" target="_blank" rel="noopener" hidden><svg class="ic"><use href="#i-calendar"/></svg><div><strong>Book a call</strong><span>Pick a time that suits you</span></div></a>
         </div>
@@ -619,7 +619,8 @@ section { scroll-margin-top: calc(var(--bar-h, 72px) - 8px); }
           <p id="done-lede">Send it to us on WhatsApp so it reaches us straight away.</p>
           <pre class="summary" id="summary"></pre>
           <div class="factions">
-            <a class="btn primary" id="wa-send" href="#" target="_blank" rel="noopener">Send on WhatsApp</a>
+            <a class="btn primary" id="mail-send" href="#">Email it to us</a>
+            <a class="btn primary touch-only" id="wa-send" href="#" target="_blank" rel="noopener">Send on WhatsApp</a>
             <button class="btn" type="button" id="copy">Copy enquiry</button>
             <button class="btn link" type="button" id="again">Start again</button>
           </div>
@@ -965,7 +966,7 @@ section { scroll-margin-top: calc(var(--bar-h, 72px) - 8px); }
 
 /* Enquiry form: three steps, then a hand-off. Set endpoint when an email service is connected; cal when a Cal.com page exists. */
 (function () {
-  var CONFIG = { endpoint: 'https://formsubmit.co/ajax/dmsolutionsie@outlook.com', whatsapp: '447784753442', phone: '+44 7784 753442', cal: '' };
+  var CONFIG = { endpoint: 'https://formsubmit.co/ajax/dmsolutionsie@outlook.com', email: 'dmsolutionsie@outlook.com', whatsapp: '447784753442', phone: '+44 7784 753442', cal: '' };
   var form = document.getElementById('enq');
   if (!form) return;
   var panels = [].slice.call(form.querySelectorAll('.panel')), prog = [].slice.call(form.querySelectorAll('.fprog li'));
@@ -1020,6 +1021,7 @@ section { scroll-margin-top: calc(var(--bar-h, 72px) - 8px); }
   function handoff(text, title, lede) {
     document.getElementById('summary').textContent = text;
     document.getElementById('wa-send').href = 'https://wa.me/' + CONFIG.whatsapp + '?text=' + encodeURIComponent(text);
+    document.getElementById('mail-send').href = 'mailto:' + CONFIG.email + '?subject=' + encodeURIComponent('Website enquiry') + '&body=' + encodeURIComponent(text);
     document.getElementById('done-title').textContent = title;
     document.getElementById('done-lede').textContent = lede;
     show(3);
@@ -1038,8 +1040,8 @@ section { scroll-margin-top: calc(var(--bar-h, 72px) - 8px); }
       _subject: 'New website enquiry: ' + val('name'), _template: 'table', _captcha: 'false',
       _autoresponse: 'Thank you for your enquiry to DM Solutions Ireland Limited. We have received it and will reply to this email address. If it is urgent, message or call us on ' + CONFIG.phone + '.' };
     fetch(CONFIG.endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(data) })
-      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok || String(j.success) !== 'true') throw new Error(String(j.message || ('HTTP ' + r.status))); handoff(text, 'Thank you, ' + val('name').split(' ')[0], 'We have your enquiry and will reply to ' + val('email') + '. You can also message us on WhatsApp if it is urgent.'); }); })
-      .catch(function (e) { handoff(text, 'We could not send that automatically', 'Your enquiry is below. Send it on WhatsApp or call us on ' + CONFIG.phone + ' and we will pick it up. (Reason given: ' + String((e && e.message) || e).slice(0, 160) + ')'); })
+      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok || String(j.success) !== 'true') throw new Error(String(j.message || ('HTTP ' + r.status))); handoff(text, 'Thank you, ' + val('name').split(' ')[0], 'We have your enquiry and will reply to ' + val('email') + '. If it is urgent, call us on ' + CONFIG.phone + '.'); }); })
+      .catch(function (e) { handoff(text, 'We could not send that automatically', 'Your enquiry is below. Email it to us or copy it, or call us on ' + CONFIG.phone + '. (Reason given: ' + String((e && e.message) || e).slice(0, 160) + ')'); })
       .then(function () { next.disabled = false; });
   }
 
